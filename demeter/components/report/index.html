@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Dashboard</title>
+    <link href="components/report/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="headerUs">
+        <h1>REPORTS</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="stat-card">
+            <div class="stat-number">20</div>
+            <div class="stat-label">Total Reports</div>
+        </div>
+
+        <div class="area-filter">
+            <button class="area-btn active" data-area="all">All Areas</button>
+            <button class="area-btn" data-area="A">Area A</button>
+            <button class="area-btn" data-area="B">Area B</button>
+            <button class="area-btn" data-area="C">Area C</button>
+        </div>
+
+        <div class="users-container">
+            <!-- Reportes Area A -->
+            <div class="user-card" data-area="A">
+                <div class="user-header">
+                    <div class="user-info">
+                        <div class="user-name">reporte-area-a-1751733372125.pdf</div>
+                    </div>
+                </div>
+                <hr class="divider">
+                <div class="user-details">
+                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area A</div>
+                    <div class="user-action">Download <i class="fas fa-download"></i></div>
+                </div>
+            </div>
+
+            <div class="user-card" data-area="A">
+                <div class="user-header">
+                    <div class="user-info">
+                        <div class="user-name">reporte-area-a-1751679559051.pdf</div>
+                    </div>
+                </div>
+                <hr class="divider">
+                <div class="user-details">
+                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area A</div>
+                    <div class="user-action">Download <i class="fas fa-download"></i></div>
+                </div>
+            </div>
+
+            <!-- Reportes Area B -->
+            <div class="user-card" data-area="B">
+                <div class="user-header">
+                    <div class="user-info">
+                        <div class="user-name">reporte-area-b-1751417027948.pdf</div>
+                    </div>
+                </div>
+                <hr class="divider">
+                <div class="user-details">
+                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area B</div>
+                    <div class="user-action">Download <i class="fas fa-download"></i></div>
+                </div>
+            </div>
+
+            <!-- Reportes Area C -->
+            <div class="user-card" data-area="C">
+                <div class="user-header">
+                    <div class="user-info">
+                        <div class="user-name">reporte-area-c-1751416774040.pdf</div>
+                    </div>
+                </div>
+                <hr class="divider">
+                <div class="user-details">
+                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area C</div>
+                    <div class="user-action">Download <i class="fas fa-download"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir el archivo JavaScript externo -->
+    <script src="components/report/code.js"></script>
+</body>
+</html>
