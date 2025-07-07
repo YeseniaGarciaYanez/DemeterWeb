@@ -1,0 +1,22 @@
+:root{
+    --background: #263238;
+    --headerBackground: #37474F;
+    --text: #CFD8DC;
+    --textBold: #ECEFF1;
+    --sideMenuBackground: #455a64;
+    --sideMenuOptionHover: #546E7A;
+
+
+  --forest: #495948;
+  --lime: #66A649;
+  --olive: #547326;
+  --fern: #5DBB63;
+  --clay: #8C5F37;
+  --sand: #F2CDA0;
+  --white: #FFFFFF;
+  --text: #333333;
+  --textSecondary: #666666;
+  --border: #E0E0E0;
+  --background: #FFFFFF;
+  --danger: #A52019;
+}
