@@ -60,7 +60,6 @@ namespace Demeter.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
-            // ✅ Manejo seguro de null en la clave JWT
             var jwtKey = _config["Jwt:Key"] ?? "defaultkey";
             var jwtIssuer = _config["Jwt:Issuer"] ?? "defaultissuer";
 
