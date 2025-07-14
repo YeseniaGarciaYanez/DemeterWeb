@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROYECTO DEMETER - Simuladores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row header-section">
+            <div class="col-md-12">
+                <h1>PROYECTO DEMETER</h1>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div id="total-plants">150</div>
+                        <div class="stat-label">Total Plantas Activas</div>
+                    </div>
+                    <div class="stat-box green-box">
+                        <div id="monthly-production">0</div>
+                        <div class="stat-label">Producción Mensual (kg)</div>
+                    </div>
+                    <div class="stat-box green-box">
+                        <div id="water-efficiency">92%</div>
+                        <div class="stat-label">Eficiencia del Uso del Agua</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>CONDICIONES AMBIENTALES</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="environmental-conditions">
+                            <div class="condition-box">
+                                <div id="temperature-value">24°C</div>
+                                <div class="condition-label">Temperatura</div>
+                            </div>
+                            <div class="condition-box">
+                                <div id="humidity-value">70%</div>
+                                <div class="condition-label">Humedad</div>
+                            </div>
+                            <div class="condition-box">
+                                <div id="ph-value">6.2</div>
+                                <div class="condition-label">pH</div>
+                            </div>
+                            <div class="condition-box">
+                                <div id="ec-value">1.8 mS/cm</div>
+                                <div class="condition-label">EC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Tendencia de pH y EC</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="ph-ec-chart" style="height: 300px;"></div>
+                        <div class="connection-status">Conexión perdida – Datos almacenados localmente</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Controles de Simulación</h2>
+                    </div>
+                    <div class="card-body">
+                        <button id="button-start" class="btn btn-success">Iniciar Simulación</button>
+                        <button id="button-stop" class="btn btn-danger">Detener Simulación</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/config.js"></script>
+    <script type="module" src="./js/config.js"></script>
+    <script type="module" src="./js/services.js"></script>
+    <script type="module" src="./js/simulator/temperature-simulator.js"></script>
+    <script type="module" src="./js/simulator/ph-simulator.js"></script>
+    <script type="module" src="./js/simulator/ec-simulator.js"></script>
+    <script type="module" src="./js/simulator/humidity-simulator.js"></script>
+    <script type="module" src="./js/simulator/water-efficiency-simulator.js"></script>
+    <script type="module" src="./js/simulator/production-simulator.js"></script>
+</body>
+</html>
