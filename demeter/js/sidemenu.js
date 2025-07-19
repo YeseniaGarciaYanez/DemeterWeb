@@ -51,6 +51,11 @@ function drawOption(option){
 }
 
 function loadComponent(component){
+    if (component === 'index') {
+        window.location.href = 'index.html'; // Redirige al index principal
+        return;
+    }
+    
     console.log(component);
     var url = component + '/index.html';
     fetch(url)

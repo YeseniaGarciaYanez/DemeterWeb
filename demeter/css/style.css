@@ -1,34 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
-}
-.ph, .temp, .water{
-    height: 250px;
-    background: #f2f8f8;
-    border-radius: 15px;
-    display: flex;
-    margin: 5px;
-    float: left;
-    border: 2px solid #3a7852; 
-}
-.ph{
-  height: 200px;
-   width: 290px;
-}
-.temp, .water{
-  height: 250px;
-   width: 465px;
-}
-.cond{
-    width: calc(100% - 40px);
-    height: 330px;
-    display: flex;
-    align-items: center;
-    margin: 10px;
-    float: left;
-    background: #f2f8f8;
-    border: 2px solid #3a7852; 
-    border-radius: 15px;
+    background: var(--backgrey);
 }
 body {
   margin: 0;

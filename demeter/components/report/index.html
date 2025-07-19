@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports Dashboard</title>
-    <link href="components/report/style.css" rel="stylesheet">
+  <!--  <link href="components/report/style.css" rel="stylesheet">
+    <link href="css/colors.css" rel="stylesheet">-->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
     <header class="headerUs">
@@ -28,63 +30,65 @@
 
         <div class="users-container">
             <!-- Reportes Area A -->
-            <div class="user-card" data-area="A">
-                <div class="user-header">
-                    <div class="user-info">
-                        <div class="user-name">reporte-area-a-1751733372125.pdf</div>
-                    </div>
-                </div>
-                <hr class="divider">
-                <div class="user-details">
-                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area A</div>
-                    <div class="user-action">Download <i class="fas fa-download"></i></div>
-                </div>
-            </div>
-
-            <div class="user-card" data-area="A">
-                <div class="user-header">
-                    <div class="user-info">
-                        <div class="user-name">reporte-area-a-1751679559051.pdf</div>
-                    </div>
-                </div>
-                <hr class="divider">
-                <div class="user-details">
-                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area A</div>
-                    <div class="user-action">Download <i class="fas fa-download"></i></div>
-                </div>
-            </div>
 
             <!-- Reportes Area B -->
-            <div class="user-card" data-area="B">
-                <div class="user-header">
-                    <div class="user-info">
-                        <div class="user-name">reporte-area-b-1751417027948.pdf</div>
-                    </div>
-                </div>
-                <hr class="divider">
-                <div class="user-details">
-                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area B</div>
-                    <div class="user-action">Download <i class="fas fa-download"></i></div>
-                </div>
-            </div>
 
             <!-- Reportes Area C -->
-            <div class="user-card" data-area="C">
-                <div class="user-header">
-                    <div class="user-info">
-                        <div class="user-name">reporte-area-c-1751416774040.pdf</div>
-                    </div>
-                </div>
-                <hr class="divider">
-                <div class="user-details">
-                    <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area C</div>
-                    <div class="user-action">Download <i class="fas fa-download"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+    <script>
+const supabaseUrl = 'https://nylcukcxkmiaduscpubv.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55bGN1a2N4a21pYWR1c2NwdWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzNzk2MzQsImV4cCI6MjA2Njk1NTYzNH0.YjwgBxRSf715u0XWnn_GQIZQaJpcZ4cU_I9RzJrqFts';
+
+const client = supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+const usersContainer = document.querySelector('.users-container');
+
+async function loadAllAreas() {
+  const areas = ['area-a', 'area-b', 'area-c'];
+  usersContainer.innerHTML = '<p>Cargando reportes...</p>';
+
+  const allCards = [];
+
+  for (let area of areas) {
+    const areaCode = area.split('-')[1].toUpperCase();
+    const { data, error } = await client.storage.from('reportes').list(area, {
+      limit: 100,
+      sortBy: { column: 'name', order: 'desc' }
+    });
+
+    if (error || !data || data.length === 0) continue;
+
+    for (let file of data) {
+      const { data: urlData } = client.storage.from('reportes').getPublicUrl(`${area}/${file.name}`);
+      const card = `
+        <div class="user-card" data-area="${areaCode}">
+          <div class="user-header">
+            <div class="user-info">
+              <div class="user-name">${file.name}</div>
+            </div>
+          </div>
+          <hr class="divider">
+          <div class="user-details">
+            <div class="user-area"><i class="fa-solid fa-file-pdf"></i> Area ${areaCode}</div>
+            <div class="user-action">
+              <a href="${urlData.publicUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+                Download <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+      allCards.push(card);
+    }
+  }
+
+  usersContainer.innerHTML = allCards.join('');
+}
+
+loadAllAreas();
+</script>
     <!-- Incluir el archivo JavaScript externo -->
     <script src="components/report/code.js"></script>
+    <script src="components/report/supabase.js"></script>
 </body>
 </html>

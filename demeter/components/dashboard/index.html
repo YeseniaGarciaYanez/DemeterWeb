@@ -1,39 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/main.js" type="module"></script>
-    <link rel ="stylesheet" href="/components/dashboard/style.css">
-    <link rel ="stylesheet" href="css/themes.css">
-    <link href="css/sidemenu.css" rel="stylesheet">
-    <link href="css/fontawesome/fontawesome.css" rel="stylesheet">
-    <link href="css/fontawesome/solid.css" rel="stylesheet">   
-    
-    <!--highcharts-->
+    <title>Proyecto Demeter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="components/dashboard/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="css/colors.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 
 </head>
-<body> 
-    </head>
-	<body>
-    <div id="body">
-        <div id="side-menu"></div>
-        <div id="content">
-            <div class="ph"  id="container-speed"></div>
-            <div class="temp" id="temp"></div>
-            <div class="water" id="water"></div> 
-           <div class="cond" id="cond"></div>
-        </div>
+<body>
+    <div class="header">
+        <h1>PROYECTO DEMETER</h1>
     </div>
-        <script src="components/highcharts/ph.js"></script>
-        <script src="components/highcharts/temp.js"></script>
-        <script src="components/highcharts/water.js"></script>
-        <script src="components/highcharts/cond.js"></script>
+
+     <div class="dashboard-container">
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number" id="total-plants">150</div>
+                <div class="stat-label">Total Plantas Activas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="monthly-production">0</div>
+                <div class="stat-label">Producción Mensual (kg)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="water-efficiency">92%</div>
+                <div class="stat-label">Eficiencia del Uso del Agua</div>
+            </div>
+        </div>
+
+        <div class="environment-section">
+            <h2 class="section-title">CONDICIONES AMBIENTALES</h2>
+            <div class="environment-grid">
+                <div class="environment-item">
+                    <div class="environment-value" id="temperature-value">24°C</div>
+                    <div class="environment-label">Temperatura</div>
+                </div>
+                <div class="environment-item">
+                    <div class="environment-value" id="humidity-value">70%</div>
+                    <div class="environment-label">Humedad</div>
+                </div>
+                <div class="environment-item">
+                    <div class="environment-value" id="ph-value">6.2</div>
+                    <div class="environment-label">pH</div>
+                </div>
+                <div class="environment-item">
+                    <div class="environment-value" id="ec-value">1.8 mS/cm</div>
+                    <div class="environment-label">EC</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2 class="section-title">Tendencia de pH y EC</h2>
+            <div class="chart-container">
+                <canvas id="ph-ec-chart"></canvas>
+            </div>
+        </div>
+        <script src="components/dashboard/code.js"></script>
 </body>
 </html>

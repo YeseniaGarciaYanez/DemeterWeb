@@ -5,7 +5,7 @@ import { showSideMenu } from '../js/sidemenu.js';
 window.addEventListener('load', init);
 
 //variables
-var sideMenuVisible = false;
+var sideMenuVisible = true;
 
 
 //init
@@ -23,7 +23,7 @@ function init() {
 function applySideMenuStyle() {
     if (sideMenuVisible) {
         document.getElementById('side-menu').style.display = 'block';
-        document.getElementById('content').style.width = 'calc(100% - 250px)';
+        document.getElementById('content').style.width = 'calc(100% - 180px)';
     } else {
         document.getElementById('side-menu').style.display = 'none';
         document.getElementById('content').style.width = '100%';

@@ -12,7 +12,7 @@
             "text":"Dashboard",
             "icon":"chart-bar",
             "color":"none",
-            "component": "components/dashboard"  
+            "component": "components/dashboard" 
         },
         {
             "id":1003,
@@ -26,7 +26,14 @@
             "text":"Report",
             "icon":"file",
             "color":"none",
+            "component":"index"
+        },
+        {
+            "id":1005,
+            "text":"Log out",
+            "icon":"user",
+            "color":"none",
             "component":"components/report"
-        }               
+        }                  
     ]
 }

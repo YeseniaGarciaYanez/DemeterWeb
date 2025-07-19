@@ -1,1 +1,113 @@
-<h1>home</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Demeter</title>
+    <link rel="stylesheet" href="components/home/style.css">
+    <link href="css/colors.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="headerUs">
+        <h1>HOME</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="ban" style="
+        background-image: url('image/banner.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: right;
+        height: 20vh;
+        width: 100%;">
+        <h1 style="color: white;">WELCOME ADMIN!</h1>
+        </div>
+
+        <!-- Sección de Accesos Rápidos -->
+        <div class="quick-access">
+            <h2><i class="fas fa-rocket"></i> Quick Access</h2>
+            <div class="users-container">
+                <div class="user-card quick-card">
+                    <div class="user-header">
+                        <i class="fas fa-tachometer-alt user-avatar"></i>
+                        <div class="user-info">
+                            <div class="user-name">Dashboard</div>
+                            <div class="user-date">View metrics and stats</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-details">
+                        <div class="user-action">Go to Dashboard <i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="user-card quick-card">
+                    <div class="user-header">
+                        <i class="fas fa-users user-avatar"></i>
+                        <div class="user-info">
+                            <div class="user-name">Users</div>
+                            <div class="user-date">Manage system users</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-details">
+                        <div class="user-action">Manage Users <i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="user-card quick-card">
+                    <div class="user-header">
+                        <i class="fas fa-file-alt user-avatar"></i>
+                        <div class="user-info">
+                            <div class="user-name">Reports</div>
+                            <div class="user-date">Generate and view reports</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-details">
+                        <div class="user-action">View Reports <i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Actividad Reciente -->
+        <div class="recent-activity">
+            <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+            <div class="users-container">
+                <div class="user-card activity-card" data-area="A">
+                    <div class="user-header">
+                        <i class="fas fa-file-upload user-avatar"></i>
+                        <div class="user-info">
+                            <div class="user-name">New Report Generated</div>
+                            <div class="user-date">Today, 10:30 AM</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-details">
+                        <div class="user-area"><i class="fas fa-folder"></i> Area A</div>
+                        <div class="user-action">View Details <i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="user-card activity-card" data-area="B">
+                    <div class="user-header">
+                        <i class="fas fa-user-plus user-avatar"></i>
+                        <div class="user-info">
+                            <div class="user-name">New User Added</div>
+                            <div class="user-date">Yesterday, 3:45 PM</div>
+                        </div>
+                    </div>
+                    <hr class="divider">
+                    <div class="user-details">
+                        <div class="user-area"><i class="fas fa-folder"></i> Area B</div>
+                        <div class="user-action">View Profile <i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

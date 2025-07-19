@@ -2,7 +2,7 @@
     position:relative;
     float:left;
     width:180px;
-    height: calc(45vh - 40px);
+    height: calc(50vh - 40px);
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -12,15 +12,16 @@
   display: flex;
   align-items: center;
   height: 54px;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .side-menu-option:hover{
-  background:#5dbb63ab;
+  background: var(--pastel);
   cursor: pointer;
 }
 .side-menu-icon{
     margin: 10px;
-    background: #777;
+    background: #ffff;
     width: 32px;
     height: 32px;
     border-radius: 5px;
@@ -29,8 +30,8 @@
     justify-content: center;
 }
 .side-menu-icon i{
-  font-size: 14pt;
-  color: var(--text);
+    font-size: 14pt;
+  color: var(--pink);
 }
 #side-menu-label{
     font-size: 12pt;

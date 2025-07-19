@@ -5,10 +5,12 @@ body{
     width: 100%;
 }
 header h1 {
-    color: #083211;
+  color: #083211;
     font-weight: 500;
-    margin-bottom: 30px;
-    font-size: 24px;
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 20px ;
+
 }
 
 .dashboard-container {
@@ -17,13 +19,12 @@ header h1 {
 }
 
 .stat-card {
-    background: #66BB6A;
+    background: var(--lime);
     border-radius: 12px;
-    padding: 25px;
+    padding: 18px;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     margin-bottom: 30px;
-    margin-top: 60px;
 }
 
 .stat-number {
@@ -95,7 +96,7 @@ header h1 {
 .divider {
     border: none;
     height: 1px;
-    background-color: #eceff1;
+    background-color: var(--yellow);
     margin: 15px 0;
 }
 
@@ -122,7 +123,7 @@ header h1 {
 
 .user-action {
     margin-top: 15px;
-    color: #1c563f;
+    color: var(--pink);
     font-weight: 500;
     cursor: pointer;
     display: flex;
@@ -174,27 +175,27 @@ header h1 {
 }
 
 .area-btn.active {
-    background-color: #1c563f;
+    background-color: var(--green);
     color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* Estilos específicos para cada área */
 .user-card[data-area="A"] {
-    border-left: 4px solid #4CAF50;
+    border-left: 4px solid var(--avocado);
 }
 
 .user-card[data-area="B"] {
-    border-left: 4px solid #2196F3;
+    border-left: 4px solid var(--pink);
 }
 
 .user-card[data-area="C"] {
-    border-left: 4px solid #9C27B0;
+    border-left: 4px solid var(--blue);
 }
 
 /* Estilos para los iconos de PDF */
 .fa-file-pdf {
-    color: #F44336;
+    color: var(--pink);
     margin-right: 8px;
 }
 

@@ -1,76 +1,220 @@
 body{
-    margin: 0px;
-    padding: 0px;
+    background: #f2f2f2;
 }
-.ph, .temp, .water{
-    height: 250px;
-    background: #f2f8f8;
-    border-radius: 15px;
-    display: flex;
-    margin: 5px;
-    float: left;
-    border: 2px solid #3a7852; 
+.headerUs{
+    width: 100%;
+    height: 35px;
+    padding-top: 4px;
 }
-.ph{
-  height: 200px;
-   width: 290px;
+header h1 {
+    color: #083211;
+    font-weight: 500;
+    font-size: 40px;
+    font-weight: bold;
+    padding-left: 20px ;
+
 }
-.temp, .water{
-  height: 250px;
-   width: 465px;
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
 }
-.cond{
-    width: calc(100% - 40px);
-    height: 330px;
+
+.stat-card, .ban {
+    background: #fff;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+.ban{
+     background-image: url('image/dimitri-01.png'); /* Cambia por la ruta de tu imagen */
+      background-size: cover;     /* Ajusta la imagen para que cubra toda la pantalla */
+      background-repeat: no-repeat; /* Evita que se repita */
+      background-position: center;  /* Centra la imagen */
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: #fff;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.users-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.user-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.user-header {
     display: flex;
     align-items: center;
-    margin: 10px;
-    float: left;
-    background: #f2f8f8;
-    border: 2px solid #3a7852; 
-    border-radius: 15px;
-}
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-.container {
-  display: flex;
-  height: 100vh;
-}
-/* Menú lateral */
-
-.side-menu .logo {
-  font-size: 24px;
-  margin-bottom: 30px;
-}
-.side-menu ul {
-  list-style: none;
-  padding: 0;
-}
-.side-menu li {
-  margin: 15px 0;
-  cursor: pointer;
-}
-/* Contenido principal */
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
-/* Header */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.top-bar input {
-  width: 60%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-.profile {
-  font-weight: bold;
+    margin-bottom: 15px;
 }
 
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    color: #1c563f;
+    font-size: 24px;
+    margin-right: 15px;
+    border: 3px solid #e0e0e0;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #263238;
+    margin-bottom: 5px;
+}
+
+.user-date {
+    font-size: 14px;
+    color: #90a4ae;
+    font-weight: 400;
+}
+
+.divider {
+    border: none;
+    height: 1px;
+    background-color: #eceff1;
+    margin: 15px 0;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.user-area {
+    font-size: 14px;
+    color: #607d8b;
+    display: flex;
+    align-items: center;
+}
+
+.user-action {
+    margin-top: 15px;
+    color: #1c563f;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.user-action i {
+    margin-left: 5px;
+    font-size: 12px;
+}
+
+/* Estilos específicos para home */
+.quick-access h2, .recent-activity h2 {
+    color: #083211;
+    font-size: 20px;
+    margin: 30px 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+.quick-access h2 i, .recent-activity h2 i {
+    margin-right: 10px;
+}
+
+.quick-card .user-avatar {
+    background: #E3F2FD;
+    color: #2196F3;
+}
+
+.activity-card .user-avatar {
+    background: #E8F5E9;
+    color: #4CAF50;
+}
+
+/* Estilos para áreas (manteniendo coherencia con users) */
+.user-card[data-area="A"] {
+    border-left: 4px solid #4CAF50;
+}
+
+.user-card[data-area="B"] {
+    border-left: 4px solid #2196F3;
+}
+
+.user-card[data-area="C"] {
+    border-left: 4px solid #9C27B0;
+}
+
+.hidro{
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .users-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        width: 100%;
+    }
+}
+
+/* Agrega esto al final de tu archivo CSS */
+
+.stat-card {
+    position: relative; /* Para posicionar elementos hijos relativos */
+    padding: 20px; /* Añade padding al contenedor */
+    text-align: center; /* Centra el contenido */
+}
+
+.stat-card h2 {
+    margin-bottom: 20px; /* Espacio debajo del título */
+    font-size: 24px; /* Tamaño del texto */
+    color: #083211; /* Color coherente con el diseño */
+}
+
+.hidro {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 300px; /* Tamaño máximo */
+    margin: 0 auto; /* Centra la imagen */
+    display: block; /* Cambia a bloque para mejor control */
+}
+
+.dimitri {
+    width: 80px; /* Tamaño pequeño */
+    position: absolute; /* Posición absoluta respecto al stat-card */
+    right: 20px; /* 20px desde la derecha */
+    bottom: 20px; /* 20px desde abajo */
+}
