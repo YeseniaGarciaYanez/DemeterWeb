@@ -1,8 +1,21 @@
+<<<<<<< HEAD
+using Demeter.API.Data;
+using Demeter.API.DTOs.Auth;
+using Demeter.API.Models;
+=======
+>>>>>>> 0ee16faa2c7dfa8cb5ac6ccd7b30ffd6dba004ed
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+<<<<<<< HEAD
+
+namespace Demeter.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+=======
 using Demeter.API.Data;
 using Demeter.API.Models;
 using Demeter.API.DTOs;
@@ -11,6 +24,7 @@ namespace Demeter.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+>>>>>>> 0ee16faa2c7dfa8cb5ac6ccd7b30ffd6dba004ed
     public class AuthController : ControllerBase
     {
         private readonly DemeterContext _context;
@@ -22,6 +36,12 @@ namespace Demeter.API.Controllers
             _config = config;
         }
 
+<<<<<<< HEAD
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginDto login)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.email == login.email && u.password == login.password);
+=======
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterDTO dto)
         {
@@ -45,6 +65,7 @@ namespace Demeter.API.Controllers
         public IActionResult Login([FromBody] LoginDTO login)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == login.Email && u.Password == login.Password);
+>>>>>>> 0ee16faa2c7dfa8cb5ac6ccd7b30ffd6dba004ed
             if (user == null) return Unauthorized("Credenciales incorrectas.");
 
             var token = GenerateJwtToken(user);
@@ -55,16 +76,26 @@ namespace Demeter.API.Controllers
         {
             var claims = new[]
             {
+<<<<<<< HEAD
+                new Claim(ClaimTypes.Name, user.name),
+                new Claim(ClaimTypes.Role, user.role), // Corregido "Rote" a "Role"
+                new Claim(ClaimTypes.NameIdentifier, user.id.ToString())
+=======
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Role, user.Role),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+>>>>>>> 0ee16faa2c7dfa8cb5ac6ccd7b30ffd6dba004ed
             };
 
             var jwtKey = _config["Jwt:Key"] ?? "defaultkey";
             var jwtIssuer = _config["Jwt:Issuer"] ?? "defaultissuer";
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+<<<<<<< HEAD
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256); // Algoritmo completo
+=======
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+>>>>>>> 0ee16faa2c7dfa8cb5ac6ccd7b30ffd6dba004ed
 
             var token = new JwtSecurityToken(
                 issuer: jwtIssuer,
