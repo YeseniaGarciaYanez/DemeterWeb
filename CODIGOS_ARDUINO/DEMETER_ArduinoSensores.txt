@@ -1,0 +1,163 @@
+*CODIGO DE ARDUINO SENSORES* 
+
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <HTTPClient.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <time.h>
+#include <PubSubClient.h>
+
+// === CONFIG WIFI ===
+const char* ssid = "UTT-CUERVOS";
+const char* password = "CU3RV@S2022";
+
+// === HTTP SERVER CONFIG ===
+const char* serverURL = "https://demeteryesi.loca.lt/api/sensors";
+
+// === MQTT CONFIG ===
+const char* mqtt_server = "broker.emqx.io";
+const int mqtt_port = 1883;
+const char* mqtt_topic = "UTT/DEMETER/SENSORES";
+
+// === SENSOR PINS ===
+#define SENSOR_PH_PIN 34
+#define SENSOR_TEMP_PIN 4
+#define SENSOR_NIVEL_PIN 23
+
+OneWire oneWire(SENSOR_TEMP_PIN);
+DallasTemperature tempSensor(&oneWire);
+
+WiFiClientSecure secureClient;
+PubSubClient mqttClient(secureClient);
+
+const int numLecturas = 10;
+float voltaje_pH7 = 2.30;
+float sensibilidad = 0.18;
+
+void conectarMQTT() {
+  while (!mqttClient.connected()) {
+    Serial.println("Conectando a MQTT...");
+    if (mqttClient.connect("ESP32Client")) {
+      Serial.println("Conectado a MQTT");
+    } else {
+      Serial.print("Fallo MQTT, rc=");
+      Serial.println(mqttClient.state());
+      delay(2000);
+    }
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando a WiFi");
+
+  int intentos = 0;
+  while (WiFi.status() != WL_CONNECTED && intentos < 20) {
+    delay(500);
+    Serial.print(".");
+    intentos++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n Conectado a WiFi!");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\n No se pudo conectar a WiFi");
+  }
+
+  configTime(0, 0, "pool.ntp.org", "time.nist.gov");
+
+  secureClient.setInsecure();  // Ignora validación SSL
+  tempSensor.begin();
+  pinMode(SENSOR_NIVEL_PIN, INPUT);
+
+  mqttClient.setServer(mqtt_server, mqtt_port);
+}
+
+void loop() {
+  tempSensor.requestTemperatures();
+  float temperatura = tempSensor.getTempCByIndex(0);
+
+  float sumaVoltajes = 0;
+  for (int i = 0; i < numLecturas; i++) {
+    int lecturaADC = analogRead(SENSOR_PH_PIN);
+    float voltaje = (lecturaADC / 4095.0) * 3.3;
+    sumaVoltajes += voltaje;
+    delay(20);
+  }
+  float voltajeProm = sumaVoltajes / numLecturas;
+  float ph = 7 - ((voltajeProm - voltaje_pH7) / sensibilidad);
+
+  int nivelAgua = digitalRead(SENSOR_NIVEL_PIN);
+
+  Serial.println("\n----- DATOS MEDIDOS -----");
+  Serial.printf("Temp: %.2f °C\n", temperatura);
+  Serial.printf("pH: %.2f\n", ph);
+  Serial.printf("Nivel Agua: %s\n", nivelAgua == 1 ? "ALTO" : "BAJO");
+
+  if (WiFi.status() == WL_CONNECTED) {
+    const char* areas[] = {"Area A", "Area B", "Area C"};
+    for (int i = 0; i < 3; i++) {
+      HTTPClient https;
+      https.begin(secureClient, serverURL);
+      https.addHeader("Content-Type", "application/json");
+
+      String json = "{";
+      json += "\"deviceId\":\"ESP32_YESI\",";
+      json += "\"clientId\":\"amigaSensor1\",";
+      json += "\"name\":\"Medidor 1\",";
+      json += "\"area\":\"" + String(areas[i]) + "\",";
+      json += "\"status\":\"ok\",";
+      json += "\"createdAt\":\"" + getTimestamp() + "\",";
+      json += "\"values\":{";
+      json += "\"ph\":" + String(ph, 2) + ",";
+      json += "\"water_temp\":" + String(temperatura, 2) + ",";
+      json += "\"water_level\":" + String(nivelAgua);
+      json += "}}";
+
+      int code = https.POST(json);
+      Serial.printf("[%s] Código HTTP: %d\n", areas[i], code);
+
+      if (code > 0) {
+        Serial.println("Respuesta del servidor:");
+        Serial.println(https.getString());
+      } else {
+        Serial.println("Error en la solicitud HTTP");
+      }
+      https.end();
+      delay(500);
+    }
+
+    if (!mqttClient.connected()) {
+      conectarMQTT();
+    }
+    mqttClient.loop();
+
+    String mqttPayload = "{";
+    mqttPayload += "\"ph\":" + String(ph, 2) + ",";
+    mqttPayload += "\"water_temp\":" + String(temperatura, 2) + ",";
+    mqttPayload += "\"water_level\":" + String(nivelAgua) + ",";
+    mqttPayload += "\"timestamp\":\"" + getTimestamp() + "\"";
+    mqttPayload += "}";
+
+    mqttClient.publish(mqtt_topic, mqttPayload.c_str());
+    Serial.println(" Publicado en MQTT:");
+    Serial.println(mqttPayload);
+  } else {
+    Serial.println(" WiFi desconectado, no se envió");
+  }
+
+  delay(10000);
+}
+
+String getTimestamp() {
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    return "1970-01-01T00:00:00Z";
+  }
+  char buffer[25];
+  strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%SZ", &timeinfo);
+  return String(buffer);
+}

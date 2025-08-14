@@ -1,0 +1,104 @@
+*CODIGO PARA BOMBA DE GOTEO* 
+
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <PubSubClient.h>
+#include "time.h"
+
+#define BOMBA_PH_PIN 23
+
+const char* ssid = "5B";
+const char* password = "18988932";
+
+const char* mqtt_server = "broker.emqx.io";
+const char* topico_estado = "UTT/DEMETER/GOTEO";
+const char* client_id = "Demeter2025";
+
+WiFiClient espClient;
+PubSubClient client(espClient);
+
+const char* serverURL = "https://demeteryesi.loca.lt/api/sensors";
+String comando;
+
+void setup() {
+  pinMode(BOMBA_PH_PIN, OUTPUT);
+  digitalWrite(BOMBA_PH_PIN, LOW);
+
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.print("Conectando a WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nConectado a WiFi");
+
+  configTime(0, 0, "pool.ntp.org");
+
+  client.setServer(mqtt_server, 1883);
+  reconnect();
+}
+
+void loop() {
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
+
+  if (Serial.available()) {
+    comando = Serial.readStringUntil('\n');
+    comando.trim();
+
+    if (comando == "Prender") {
+      digitalWrite(BOMBA_PH_PIN, HIGH);
+      Serial.println("Bomba de pH ACTIVADA");
+      enviarEstado("BombaPH", "ACTIVADA");
+      client.publish(topico_estado, "ACTIVADA");
+    } else if (comando == "Apagar") {
+      digitalWrite(BOMBA_PH_PIN, LOW);
+      Serial.println("Bomba de pH DESACTIVADA");
+      enviarEstado("BombaPH", "DESACTIVADA");
+      client.publish(topico_estado, "DESACTIVADA");
+    } else {
+      Serial.println("Comando no reconocido. Usa 'Prender' o 'Apagar'.");
+    }
+  }
+}
+
+void enviarEstado(String tipo, String estado) {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    http.begin(serverURL);
+    http.addHeader("Content-Type", "application/json");
+
+    String json = "{\"deviceId\":\"ESP32-001\",\"name\":\"" + tipo + "\",\"status\":\"" + estado + "\",\"area\":\"Area A\",\"createdAt\":\"" + getFechaISO() + "\",\"values\":{}}";
+    int httpResponseCode = http.POST(json);
+
+    Serial.println(httpResponseCode > 0 ? "Datos enviados: " + String(httpResponseCode) : "Error al enviar datos: " + http.errorToString(httpResponseCode));
+
+    http.end();
+  }
+}
+
+String getFechaISO() {
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    return "";
+  }
+  char timeString[30];
+  strftime(timeString, sizeof(timeString), "%Y-%m-%dT%H:%M:%SZ", &timeinfo);
+  return String(timeString);
+}
+
+void reconnect() {
+  while (!client.connected()) {
+    Serial.print("Conectando al broker MQTT...");
+    if (client.connect(client_id)) {
+      Serial.println("¡Conectado a MQTT!");
+    } else {
+      Serial.print("Falló, rc=");
+      Serial.println(client.state());
+      delay(2000);
+    }
+  }
+}
